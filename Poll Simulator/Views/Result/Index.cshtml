@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Poll_Simulator.Models.ElectionResult
+@{
+    ViewData["Title"] = "Result Page";
+}
+
+
+<div>
+    @if (Model.CandidateList != null)
+    {
+
+        <label class="text-dark font-weight-bold">Voting Report</label>
+
+        <table class="table-bordered col-6" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Votes</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.CandidateList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VoteCount)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+    }
+
+    <form asp-controller="Result" asp-action="GenerateReport">
+        <input type="submit" value="Generate Report" class="btn btn-primary" />
+    </form>
+
+    <br />
+
+
+    @if (Model.FirstCandidate != null)
+    {
+        <label class="text-dark font-weight-bold">Poll Result</label>
+        <br />
+        <label>Won: @Model.FirstCandidate.Name (@Model.FirstCandidate.VoteCount)</label>
+
+        @if (Model.SecondCandidate != null)
+        {
+            <br />
+            <label>Lost: @Model.SecondCandidate.Name (@Model.SecondCandidate.VoteCount)</label>
+        }
+        <br />
+    }
+
+    <form asp-controller="Result" asp-action="GenerateResult">
+        <input type="submit" value="Generate Result" class="btn btn-primary" />
+    </form>
+
+</div>

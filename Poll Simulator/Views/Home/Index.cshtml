@@ -1,0 +1,46 @@
+﻿@model Poll_Simulator.Models.CandidatesForElection
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@using (Html.BeginForm())
+
+{
+    <label class="font-weight-bold">Student ID: </label>
+    <input type="text" class="form-control col-4" asp-for="StudentIdOfVoter" />
+    <br />
+
+    <h2 class="font-weight-bold">
+        Candidate List
+    </h2>
+
+    <table class="table-borderless border-dark col-2">
+
+
+
+        <tbody>
+
+            @foreach (var item in Model.AllCandidates)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m.SelectedCandidate, item.StudentID)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <br />
+
+    <input asp-action="Index" type="submit" value="Cast Vote" class="btn btn-primary" />
+    <br />
+    <br />
+
+    <label class="alert-danger">@Model.VoteStatus</label>
+}
