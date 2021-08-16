@@ -43,6 +43,8 @@ Controllers handles the requests coming from the client and handles them appropr
 
 ## Business Layer
 
+PollSimulatorLibrary works as the business layer.
+
 ### Interface
 Contains the interface which will be used by the presentation layer.
 The interface is implement by CandidateVote.cs which contains the business logic for Getting all the candidates, Creating a new Candidate, Getting the winner/loser.
