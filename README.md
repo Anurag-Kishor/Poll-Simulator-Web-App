@@ -15,34 +15,41 @@ An ASP.NET App that simulates election for SBG(Student Body Governance) at the i
   
 # Folder Structure
 
-The folders are created based on MVC Architecture.
+![image](https://user-images.githubusercontent.com/58660122/129538445-c02023bb-aac5-4b07-9f85-3b7346d049ef.png)
 
-![Folders](https://user-images.githubusercontent.com/58660122/129340432-4f55e881-6ba9-470a-92f9-01e179c1a80a.jpg)
-
+## Presentation Layer 
+The presentation Layer uses MVC Architecture.
 
 ### Views
-This is the presentation layer which contains all the views.
 - Candidates contains the form to create the Candidate. 
 - Home folder contains the view of the Cast your Vote page.
 - Result folder contains the view which generates the result and report
 
 ### Models
-
-- Candidate.cs contains the model for the Candidate.
-- CandidatesForElection.cs contains the model for storing the vote cast by Student
 - ElectionResults.cs is the model used for generating the voting report and result.
 
-### Repository
-CandidatesRepository.cs is used as a local database to store the Candidates Informations List and the Voters list.
-
+There are 2 other models which are present in the PollSimulator.Domain project since these two classes are used by both Presentation layer as well as Business Layer
+- Candidate.cs contains the model for the Candidate.
+- CandidatesForElection.cs contains the model for storing the vote cast by Student
 
 ### Controllers
 
-Controllers contain the business logic which interacts with the presentation layer and the Data Access Layer.
+Controllers handles the requests coming from the client and handles them appropriately. Controllers interact with the business layer.
 
 - HomeController.cs handles the requests from the Home View and handles them accordingly.
 - CandidatesController.cs is used to handle the data from the Candidates View.
 - ResultController.cs contains the logic to generate the Report as well as Election Results.
+
+
+## Business Layer
+
+### Interface
+Contains the interface which will be used by the presentation layer.
+The interface is implement by CandidateVote.cs which contains the business logic for Getting all the candidates, Creating a new Candidate, Getting the winner/loser.
+This layer interacts with the data access layer. 
+
+### Repository
+CandidatesRepository.cs is used as a local database to store the Candidates Informations List and the Voters list.
 
 
 # Pages
