@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PollSimulator.Domain\PollSimulator.Domain.csproj" />
+    <ProjectReference Include="..\PollSimulatorLibrary\PollSimulatorLibrary.csproj" />
+  </ItemGroup>
+
 </Project>
