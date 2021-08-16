@@ -1,4 +1,4 @@
-﻿@model Poll_Simulator.Models.CandidatesForElection
+﻿@model PollSimulator.Domain.CandidatesForElection
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -20,7 +20,8 @@
 
 
         <tbody>
-
+            @if (Model.AllCandidates != null)
+            {
             @foreach (var item in Model.AllCandidates)
             {
 
@@ -32,6 +33,7 @@
                         @Html.RadioButtonFor(m => m.SelectedCandidate, item.StudentID)
                     </td>
                 </tr>
+            }
             }
         </tbody>
 

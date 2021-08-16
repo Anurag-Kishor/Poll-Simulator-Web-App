@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Poll_Simulator.Models;
-using Poll_Simulator.Repository;
+using PollSimulator.Domain;
+using PollSimulatorLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,19 +14,23 @@ namespace Poll_Simulator.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICandidateVote pollSimulatorLib;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICandidateVote libInstance)
         {
+            pollSimulatorLib = libInstance;
             _logger = logger;
         }
+      
 
         public IActionResult Index()
         {
             CandidatesForElection cfe = new CandidatesForElection();
+            cfe.AllCandidates = pollSimulatorLib.GetAllCandidates();
             return View(cfe);
         }
 
-      
+        //POST /home
         [HttpPost]
         public IActionResult Index(CandidatesForElection c)
         {
@@ -40,22 +45,8 @@ namespace Poll_Simulator.Controllers
                 c.VoteStatus= "You need to enter your student ID to cast a vote";
                 return View("Index", c);
             }
-
-            List<string> CandidateList = CandidatesRepository.GetVotersList();
-
-
-            if (CandidateList.Count != 0)
-            {
-                if (CandidateList.Exists(x => x == c.StudentIdOfVoter))
-                {
-                    c.VoteStatus = c.StudentIdOfVoter + ", you have already voted!";
-                    return View("Index", c);
-                }
-            }
-
-            CandidatesRepository.AddVoters(c.StudentIdOfVoter);
-            CandidatesRepository.IncrementVote(c.SelectedCandidate);
-            c.VoteStatus = c.StudentIdOfVoter + ", your vote has been recorded successfully.";
+            c.AllCandidates = pollSimulatorLib.GetAllCandidates();
+            c.VoteStatus = pollSimulatorLib.VoteTo(c.StudentIdOfVoter, c.SelectedCandidate);
             return View("Index", c);
 
         }

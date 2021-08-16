@@ -1,10 +1,10 @@
-﻿using Poll_Simulator.Models;
+﻿using PollSimulator.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Poll_Simulator.Repository
+namespace PollSimulatorLibrary.Repository
 {
     public static class CandidatesRepository
     {
@@ -21,6 +21,10 @@ namespace Poll_Simulator.Repository
             CandidateList.Add(c);
         }
 
+        public static void FindCandidate()
+        {
+
+        }
         public static List<Candidate> GetCandidates()
         {
             return CandidateList;
